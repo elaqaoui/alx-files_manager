@@ -1,6 +1,6 @@
 import envLoader from '../utils/env_loader';
 
-const startServer = (api) => {
+const startingServer = (api) => {
   envLoader();
   const port = process.env.PORT || 5000;
   const env = process.env.npm_lifecycle_event || 'dev';
@@ -9,4 +9,4 @@ const startServer = (api) => {
   });
 };
 
-export default startServer;
+export default startingServer;

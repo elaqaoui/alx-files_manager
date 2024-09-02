@@ -7,23 +7,23 @@ import mongoDBCore from 'mongodb/lib/core';
 import dbClient from './utils/db';
 import Mailer from './utils/mailer';
 
-const writeFileAsync = promisify(writeFile);
-const fileQueue = new Queue('thumbnail generation');
-const userQueue = new Queue('email sending');
+const WtFilesSync = promisify(writeFile);
+const serQueue = new Queue('thumbnail generation');
+const UserQu = new Queue('email sending');
 
 /**
  * Generates the thumbnail of an image with a given width size.
- * @param {String} filePath The location of the original file.
+ * @param {String} FlPath The location of the original file.
  * @param {number} size The width of the thumbnail.
  * @returns {Promise<void>}
  */
-const generateThumbnail = async (filePath, size) => {
-  const buffer = await imgThumbnail(filePath, { width: size });
-  console.log(`Generating file: ${filePath}, size: ${size}`);
-  return writeFileAsync(`${filePath}_${size}`, buffer);
+const ThumblGenerate = async (FlPath, size) => {
+  const buffer = await imgThumbnail(FlPath, { width: size });
+  console.log(`Generating file: ${FlPath}, size: ${size}`);
+  return WtFilesSync(`${FlPath}_${size}`, buffer);
 };
 
-fileQueue.process(async (job, done) => {
+serQueue.process(async (job, done) => {
   const fileId = job.data.fileId || null;
   const userId = job.data.userId || null;
 
@@ -43,13 +43,13 @@ fileQueue.process(async (job, done) => {
     throw new Error('File not found');
   }
   const sizes = [500, 250, 100];
-  Promise.all(sizes.map((size) => generateThumbnail(file.localPath, size)))
+  Promise.all(sizes.map((size) => ThumblGenerate(file.localPath, size)))
     .then(() => {
       done();
     });
 });
 
-userQueue.process(async (job, done) => {
+UserQu.process(async (job, done) => {
   const userId = job.data.userId || null;
 
   if (!userId) {

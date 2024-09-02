@@ -12,7 +12,7 @@ const SCOPES = ['https://www.googleapis.com/auth/gmail.send'];
 // time.
 const TOKEN_PATH = 'token.json';
 const readFileAsync = promisify(fs.readFile);
-const writeFileAsync = promisify(fs.writeFile);
+const WtFilesSync = promisify(fs.writeFile);
 
 /**
  * Get and store new token after prompting for user authorization, and then
@@ -38,7 +38,7 @@ async function getNewToken(oAuth2Client, callback) {
         return;
       }
       oAuth2Client.setCredentials(token);
-      writeFileAsync(TOKEN_PATH, JSON.stringify(token))
+      WtFilesSync(TOKEN_PATH, JSON.stringify(token))
         .then(() => {
           console.log('Token stored to', TOKEN_PATH);
           callback(oAuth2Client);

@@ -57,11 +57,11 @@ describe('+ FilesController', () => {
       return;
     }
     for (const fileName of readdirSync(name)) {
-      const filePath = joinPath(name, fileName);
-      if (statSync(filePath).isFile) {
-        unlinkSync(filePath);
+      const FlPath = joinPath(name, fileName);
+      if (statSync(FlPath).isFile) {
+        unlinkSync(FlPath);
       } else {
-        emptyFolder(filePath);
+        emptyFolder(FlPath);
       }
     }
   };

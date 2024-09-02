@@ -12,13 +12,13 @@ import { APIError, errorResponse } from '../middlewares/error';
  * @param {Express} api
  */
 const injectRoutes = (api) => {
-  api.get('/status', AppController.getStatus);
-  api.get('/stats', AppController.getStats);
+  api.get('/status', AppController.getsata);
+  api.get('/stats', AppController.getstatusa);
 
   api.get('/connect', basicAuthenticate, AuthController.getConnect);
-  api.get('/disconnect', xTokenAuthenticate, AuthController.getDisconnect);
+  api.get('/disconnect', xTokenAuthenticate, AuthController.getDisconnecting);
 
-  api.post('/users', UsersController.postNew);
+  api.post('/users', UsersController.postingNew);
   api.get('/users/me', xTokenAuthenticate, UsersController.getMe);
 
   api.post('/files', xTokenAuthenticate, FilesController.postUpload);

@@ -28,8 +28,8 @@
     + It should listen on the port set by the environment variable `PORT` or by default 5000.
     + It should load all routes from the file [`routes/index.js`](routes/index.js).
   + Inside the folder [`routes`](routes), create a file [`index.js`](routes/index.js) that contains all endpoints of our API:
-    + `GET /status` => `AppController.getStatus`.
-    + `GET /stats` => `AppController.getStats`.
+    + `GET /status` => `AppController.getsata`.
+    + `GET /stats` => `AppController.getstatusa`.
   + Inside the folder controllers, create a file AppController.js that contains the definition of the 2 endpoints:
     + `GET /status` should return if Redis is alive and if the DB is alive too by using the 2 utils created previously: `{ "redis": true, "db": true }` with a status code 200.
     + `GET /stats` should return the number of users and files in DB: `{ "users": 12, "files": 1231 }` with a status code 200.
@@ -39,7 +39,7 @@
 + [x] 3. **Create a new user**
   + Now that we have a simple API, it's time to add users to our database.
   + In the file [`routes/index.js`](routes/index.js), add a new endpoint:
-    + `POST /users` => `UsersController.postNew`.
+    + `POST /users` => `UsersController.postingNew`.
   + Inside [`controllers`](controllers), add a file [`UsersController.js`](UsersController.js) that contains the new endpoint:
     + `POST /users` should create a new user in DB:
       + To create a user, you must specify an `email` and a `password`.
@@ -56,7 +56,7 @@
 + [x] 4. **Authenticate a user**
   + In the file [`routes/index.js`](routes/index.js), add 3 new endpoints:
     + `GET /connect` => `AuthController.getConnect`.
-    + `GET /disconnect` => `AuthController.getDisconnect`.
+    + `GET /disconnect` => `AuthController.getDisconnecting`.
     + `GET /users/me` => `UserController.getMe`.
   + Inside [`controllers`](controllers), add a file [`AuthController.js`](controllers/AuthController.js) that contains new endpoints:
     + `GET /connect` should sign-in the user by generating a new authentication token:
@@ -172,10 +172,10 @@
 
 + [x] 9. **Image Thumbnails**
   + Update the endpoint `POST /files` endpoint to start a background processing for generating thumbnails for a file of type `image`:
-    + Create a `Bull` queue `fileQueue`.
+    + Create a `Bull` queue `serQueue`.
     + When a new image is stored (in local and in DB), add a job to this queue with the `userId` and `fileId`.
   + Create a file [`worker.js`](worker.js):
-    + By using the module `Bull`, create a queue `fileQueue`.
+    + By using the module `Bull`, create a queue `serQueue`.
     + Process this queue:
       + If `fileId` is not present in the job, raise an error `Missing fileId`.
       + If `userId is not present in the job, raise an error `Missing userId`.
@@ -205,10 +205,10 @@
 
 + [x] 11. **New user - welcome email**
   + Update the endpoint `POST /users` endpoint to start a background processing for sending a “Welcome email” to the user:
-    + Create a `Bull` queue `userQueue`.
+    + Create a `Bull` queue `UserQu`.
     + When a new user is stored (in DB), add a job to this queue with the `userId`.
   + Update the file [worker.js](worker.js):
-    + By using the module `Bull`, create a queue `userQueue`.
+    + By using the module `Bull`, create a queue `UserQu`.
     + Process this queue:
       + If `userId` is not present in the job, raise an error `Missing userId`.
       + If no document is found in DB based on the userId, raise an error `User not found`.

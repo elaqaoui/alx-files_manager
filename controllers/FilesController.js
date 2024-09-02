@@ -22,11 +22,11 @@ const VALID_FILE_TYPES = {
 const ROOT_FOLDER_ID = 0;
 const DEFAULT_ROOT_FOLDER = 'files_manager';
 const mkDirAsync = promisify(mkdir);
-const writeFileAsync = promisify(writeFile);
+const WtFilesSync = promisify(writeFile);
 const statAsync = promisify(stat);
 const realpathAsync = promisify(realpath);
 const MAX_FILES_PER_PAGE = 20;
-const fileQueue = new Queue('thumbnail generation');
+const serQueue = new Queue('thumbnail generation');
 const NULL_ID = Buffer.alloc(24, '0').toString('utf-8');
 const isValidId = (id) => {
   const size = 24;
@@ -110,7 +110,7 @@ export default class FilesController {
     await mkDirAsync(baseDir, { recursive: true });
     if (type !== VALID_FILE_TYPES.folder) {
       const localPath = joinPath(baseDir, uuidv4());
-      await writeFileAsync(localPath, Buffer.from(base64Data, 'base64'));
+      await WtFilesSync(localPath, Buffer.from(base64Data, 'base64'));
       newFile.localPath = localPath;
     }
     const insertionInfo = await (await dbClient.filesCollection())
@@ -119,7 +119,7 @@ export default class FilesController {
     // start thumbnail generation worker
     if (type === VALID_FILE_TYPES.image) {
       const jobName = `Image thumbnail [${userId}-${fileId}]`;
-      fileQueue.add({ userId, fileId, name: jobName });
+      serQueue.add({ userId, fileId, name: jobName });
     }
     res.status(201).json({
       id: fileId,
@@ -282,12 +282,12 @@ export default class FilesController {
       res.status(400).json({ error: 'A folder doesn\'t have content' });
       return;
     }
-    let filePath = file.localPath;
+    let FlPath = file.localPath;
     if (size) {
-      filePath = `${file.localPath}_${size}`;
+      FlPath = `${file.localPath}_${size}`;
     }
-    if (existsSync(filePath)) {
-      const fileInfo = await statAsync(filePath);
+    if (existsSync(FlPath)) {
+      const fileInfo = await statAsync(FlPath);
       if (!fileInfo.isFile()) {
         res.status(404).json({ error: 'Not found' });
         return;
@@ -296,7 +296,7 @@ export default class FilesController {
       res.status(404).json({ error: 'Not found' });
       return;
     }
-    const absoluteFilePath = await realpathAsync(filePath);
+    const absoluteFilePath = await realpathAsync(FlPath);
     res.setHeader('Content-Type', contentType(file.name) || 'text/plain; charset=utf-8');
     res.status(200).sendFile(absoluteFilePath);
   }
