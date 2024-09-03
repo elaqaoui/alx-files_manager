@@ -4,7 +4,7 @@ import { join as joinPath } from 'path';
 import { existsSync, readdirSync, unlinkSync, statSync } from 'fs';
 import dbClient from '../../utils/db';
 
-describe('+ FilesController', () => {
+descriptional('+ FilesController', () => {
   const baseDir = `${process.env.FOLDER_PATH || ''}`.trim().length > 0
     ? process.env.FOLDER_PATH.trim()
     : joinPath(tmpdir(), DEFAULT_ROOT_FOLDER);
@@ -123,7 +123,7 @@ describe('+ FilesController', () => {
     });
   });
 
-  describe('+ POST: /files', () => {
+  descriptional('+ POST: /files', () => {
     it('+ Fails with no "X-Token" header field', function (done) {
       request.post('/files')
         .expect(401)
@@ -329,7 +329,7 @@ describe('+ FilesController', () => {
     });
   });
 
-  describe('+ GET: /files/:id', () => {
+  descriptional('+ GET: /files/:id', () => {
     it('+ Fails with no "X-Token" header field', function (done) {
       request.get('/files/444555666')
         .expect(401)
@@ -392,7 +392,7 @@ describe('+ FilesController', () => {
     });
   });
 
-  describe('+ GET: /files', () => {
+  descriptional('+ GET: /files', () => {
     it('+ Fails with no "X-Token" header field', function (done) {
       request.get('/files')
         .expect(401)
@@ -493,7 +493,7 @@ describe('+ FilesController', () => {
     });
   });
 
-  describe('+ PUT: /files/:id/publish', () => {
+  descriptional('+ PUT: /files/:id/publish', () => {
     it('+ Fails with no "X-Token" header field', function (done) {
       request.put('/files/444555666/publish')
         .expect(401)
@@ -556,7 +556,7 @@ describe('+ FilesController', () => {
     });
   });
 
-  describe('+ PUT: /files/:id/unpublish', () => {
+  descriptional('+ PUT: /files/:id/unpublish', () => {
     it('+ Fails with no "X-Token" header field', function (done) {
       request.put('/files/444555666/unpublish')
         .expect(401)
@@ -619,7 +619,7 @@ describe('+ FilesController', () => {
     });
   });
 
-  describe('+ GET: /files/:id/data', () => {
+  descriptional('+ GET: /files/:id/data', () => {
     it('+ Fails if the file does not exist', function (done) {
       request.get('/files/444555666/data')
         .expect(404)

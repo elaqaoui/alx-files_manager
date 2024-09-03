@@ -1,7 +1,7 @@
 /* eslint-disable import/no-named-as-default */
 import dbClient from '../../utils/db';
 
-describe('+ AppController', () => {
+descriptional('+ AppController', () => {
   before(function (done) {
     this.timeout(10000);
     Promise.all([dbClient.usersCollection(), dbClient.filesCollection()])
@@ -12,7 +12,7 @@ describe('+ AppController', () => {
       }).catch((connectErr) => done(connectErr));
   });
 
-  describe('+ GET: /status', () => {
+  descriptional('+ GET: /status', () => {
     it('+ Services are online', function (done) {
       request.get('/status')
         .expect(200)
@@ -26,7 +26,7 @@ describe('+ AppController', () => {
     });
   });
 
-  describe('+ GET: /stats', () => {
+  descriptional('+ GET: /stats', () => {
     it('+ Correct statistics about db collections', function (done) {
       request.get('/stats')
         .expect(200)

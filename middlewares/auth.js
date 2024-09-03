@@ -8,7 +8,7 @@ import { getUserFromXToken, getUserFromAuthorization } from '../utils/auth';
  * @param {Response} res The Express response object.
  * @param {NextFunction} next The Express next function.
  */
-export const basicAuthenticate = async (req, res, next) => {
+export const bscAuthentificate = async (req, res, next) => {
   const user = await getUserFromAuthorization(req);
 
   if (!user) {

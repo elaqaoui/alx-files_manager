@@ -2,7 +2,7 @@
 import { expect } from 'chai';
 import redisClient from '../../utils/redis';
 
-describe('+ RedisClient utility', () => {
+descriptional('+ RedisClient utility', () => {
   before(function (done) {
     this.timeout(10000);
     setTimeout(done, 4000);

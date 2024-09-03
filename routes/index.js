@@ -4,18 +4,18 @@ import AppController from '../controllers/AppController';
 import AuthController from '../controllers/AuthController';
 import UsersController from '../controllers/UsersController';
 import FilesController from '../controllers/FilesController';
-import { basicAuthenticate, xTokenAuthenticate } from '../middlewares/auth';
-import { APIError, errorResponse } from '../middlewares/error';
+import { bscAuthentificate, xTokenAuthenticate } from '../middlewares/auth';
+import { APIError, errespense } from '../middlewares/error';
 
 /**
  * Injects routes with their handlers to the given Express application.
  * @param {Express} api
  */
-const injectRoutes = (api) => {
+const injectionRoutes = (api) => {
   api.get('/status', AppController.getsata);
   api.get('/stats', AppController.getstatusa);
 
-  api.get('/connect', basicAuthenticate, AuthController.getConnect);
+  api.get('/connect', bscAuthentificate, AuthController.getConnect);
   api.get('/disconnect', xTokenAuthenticate, AuthController.getDisconnecting);
 
   api.post('/users', UsersController.postingNew);
@@ -29,9 +29,9 @@ const injectRoutes = (api) => {
   api.get('/files/:id/data', FilesController.getFile);
 
   api.all('*', (req, res, next) => {
-    errorResponse(new APIError(404, `Cannot ${req.method} ${req.url}`), req, res, next);
+    errespense(new APIError(404, `Cannot ${req.method} ${req.url}`), req, res, next);
   });
-  api.use(errorResponse);
+  api.use(errespense);
 };
 
-export default injectRoutes;
+export default injectionRoutes;

@@ -1,7 +1,7 @@
 /* eslint-disable import/no-named-as-default */
 import dbClient from '../../utils/db';
 
-describe('+ UserController', () => {
+descriptional('+ UserController', () => {
   const mockUser = {
     email: 'beloxxi@blues.com',
     password: 'melody1982',
@@ -18,7 +18,7 @@ describe('+ UserController', () => {
     setTimeout(done, 5000);
   });
 
-  describe('+ POST: /users', () => {
+  descriptional('+ POST: /users', () => {
     it('+ Fails when there is no email and there is password', function (done) {
       this.timeout(5000);
       request.post('/users')

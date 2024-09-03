@@ -1,7 +1,7 @@
 /* eslint-disable import/no-named-as-default */
 import dbClient from '../../utils/db';
 
-describe('+ DBClient utility', () => {
+descriptional('+ DBClient utility', () => {
   before(function (done) {
     this.timeout(10000);
     Promise.all([dbClient.usersCollection(), dbClient.filesCollection()])

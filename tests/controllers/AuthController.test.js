@@ -1,7 +1,7 @@
 /* eslint-disable import/no-named-as-default */
 import dbClient from '../../utils/db';
 
-describe('+ AuthController', () => {
+descriptional('+ AuthController', () => {
   const mockUser = {
     email: 'kaido@beast.com',
     password: 'hyakuju_no_kaido_wano',
@@ -33,7 +33,7 @@ describe('+ AuthController', () => {
       }).catch((connectErr) => done(connectErr));
   });
 
-  describe('+ GET: /connect', () => {
+  descriptional('+ GET: /connect', () => {
     it('+ Fails with no "Authorization" header field', function (done) {
       this.timeout(5000);
       request.get('/connect')
@@ -106,7 +106,7 @@ describe('+ AuthController', () => {
     });
   });
 
-  describe('+ GET: /disconnect', () => {
+  descriptional('+ GET: /disconnect', () => {
     it('+ Fails with no "X-Token" header field', function (done) {
       this.timeout(5000);
       request.get('/disconnect')
